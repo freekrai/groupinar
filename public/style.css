@@ -100,3 +100,15 @@ body {
 .__footer li a:hover {
   opacity: 1;
 }
+
+.full-height {
+    height: 100vh;
+}
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+.position-ref {
+    position: relative;
+}

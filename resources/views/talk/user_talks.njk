@@ -1,0 +1,7 @@
+{% extends 'layouts.master' %}
+
+{% block title %} My Talks {% endblock %}
+
+{% block content %}
+	{{ webinars | dump | safe }}
+{% endblock %}
