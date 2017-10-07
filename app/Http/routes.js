@@ -37,6 +37,7 @@ Route.post('webinar/new', 'WebinarController.newsave')
 Route.get('webinar/host/:slug', 'WebinarController.host').middleware('auth')
 Route.get('webinar/guest/:slug', 'WebinarController.guest')
 Route.get('webinar/token','WebinarController.token')
+Route.get('webinar/:slug', 'WebinarController.guest')
 
 // all twilio related routes go to `TalkController`
 Route.get('/sms', 'TalkController.sendsms')

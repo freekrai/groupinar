@@ -5,8 +5,11 @@ const Twilio = require('twilio')
 const Env = use('Env')
 
 const client = new Twilio(Env.get('TWILIO_ACCOUNT_SID', null), Env.get('TWILIO_AUTH_TOKEN', null) );
-var AccessToken = require('twilio').jwt.AccessToken;
-var VideoGrant = AccessToken.VideoGrant;
+const AccessToken = require('twilio').jwt.AccessToken;
+const ChatGrant = AccessToken.ChatGrant;
+const VideoGrant = AccessToken.VideoGrant;
+const SyncGrant = AccessToken.SyncGrant;
+
 const fromNumber = Env.get('TWILIO_FROM_NUMBER', null);
 
 class WebinarController {
@@ -30,8 +33,17 @@ class WebinarController {
 			process.env.TWILIO_API_SECRET
 		);
 		token.identity = identity;
-		var grant = new VideoGrant();
-		token.addGrant(grant);
+		token.addGrant( new VideoGrant() );
+		if (process.env.TWILIO_SYNC_SERVICE_SID) {
+			token.addGrant( new SyncGrant({
+				serviceSid: process.env.TWILIO_SYNC_SERVICE_SID
+    		}));
+		}
+		if( process.env.TWILIO_CHAT_SERVICE_SID ){
+			token.addGrant( new ChatGrant({
+	      		serviceSid: process.env.TWILIO_CHAT_SERVICE_SID
+	    	}));
+		}
 		response.send({
 			identity: identity,
 			token: token.toJwt()
@@ -68,21 +80,6 @@ class WebinarController {
 	}
 
 	* host(request, response){
-		if( request.currentUser ){
-			const user = request.currentUser
-			var identity = user.username;
-		}else{
-			var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
-		}
-		var token = new AccessToken(
-			process.env.TWILIO_ACCOUNT_SID,
-			process.env.TWILIO_API_KEY,
-			process.env.TWILIO_API_SECRET
-		);
-		token.identity = identity;
-		var grant = new VideoGrant();
-		token.addGrant(grant);
-
 		var slug = request.param('slug');
 		var webinar = yield Webinar.query().where('slug', slug).fetch();
 /*
@@ -96,26 +93,14 @@ class WebinarController {
 		});
 */
 		yield response.sendView('talk.host', {
-			accessToken: token.toJwt(),
 			slug: slug,
 			talk: webinar.toJSON()
 		})
 	}
 	* guest(request, response){
-		var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
-		var token = new AccessToken(
-			process.env.TWILIO_ACCOUNT_SID,
-			process.env.TWILIO_API_KEY,
-			process.env.TWILIO_API_SECRET
-		);
-		token.identity = identity;
-		var grant = new VideoGrant();
-		token.addGrant(grant);
-
 		var slug = request.param('slug');
 		var webinar = yield Webinar.query().where('slug', slug).fetch();
 		yield response.sendView('talk.guest', {
-			accessToken: token.toJwt(),
 			slug: slug,
 			talk: webinar.toJSON()
 		})
