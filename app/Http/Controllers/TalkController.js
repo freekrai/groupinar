@@ -9,7 +9,8 @@ class TalkController {
 		    from: request.twilioClient.fromNumber,
 		    body: "This is the ship that made the Kessel Run in fourteen parsecs?",
 		}, function(err, message) {
-//		    console.log(message.sid);
+			if( err ) console.error( err );
+			console.log( message );
 		});
 		yield response.sendView('home')
 	}
