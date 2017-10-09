@@ -1,17 +1,6 @@
 'use strict'
 const Webinar = use('App/Model/Webinar')
 const RandomString = use('randomstring')
-const Twilio = require('twilio')
-const Env = use('Env')
-
-const client = new Twilio(Env.get('TWILIO_ACCOUNT_SID', null), Env.get('TWILIO_AUTH_TOKEN', null) );
-const AccessToken = require('twilio').jwt.AccessToken;
-const ChatGrant = AccessToken.ChatGrant;
-const VideoGrant = AccessToken.VideoGrant;
-const SyncGrant = AccessToken.SyncGrant;
-
-const fromNumber = Env.get('TWILIO_FROM_NUMBER', null);
-
 class WebinarController {
 
 	* index(request, response){
@@ -27,20 +16,21 @@ class WebinarController {
 		}else{
 			var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
 		}
-		var token = new AccessToken(
+
+		var token = new request.twilioClient.AccessToken(
 			process.env.TWILIO_ACCOUNT_SID,
 			process.env.TWILIO_API_KEY,
 			process.env.TWILIO_API_SECRET
 		);
 		token.identity = identity;
-		token.addGrant( new VideoGrant() );
+		token.addGrant( new request.twilioClient.VideoGrant() );
 		if (process.env.TWILIO_SYNC_SERVICE_SID) {
-			token.addGrant( new SyncGrant({
+			token.addGrant( new request.twilioClient.SyncGrant({
 				serviceSid: process.env.TWILIO_SYNC_SERVICE_SID
     		}));
 		}
 		if( process.env.TWILIO_CHAT_SERVICE_SID ){
-			token.addGrant( new ChatGrant({
+			token.addGrant( new request.twilioClient.ChatGrant({
 	      		serviceSid: process.env.TWILIO_CHAT_SERVICE_SID
 	    	}));
 		}

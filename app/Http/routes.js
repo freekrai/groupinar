@@ -34,10 +34,10 @@ Route.get('logout', 'AuthController.logout')
 Route.get('webinars', 'WebinarController.index').middleware('auth')
 Route.get('webinar/new', 'WebinarController.new').middleware('auth')
 Route.post('webinar/new', 'WebinarController.newsave')
-Route.get('webinar/host/:slug', 'WebinarController.host').middleware('auth')
+Route.get('webinar/host/:slug', 'WebinarController.host')
 Route.get('webinar/guest/:slug', 'WebinarController.guest')
 Route.get('webinar/token','WebinarController.token')
 Route.get('webinar/:slug', 'WebinarController.guest')
 
 // all twilio related routes go to `TalkController`
-Route.get('/sms', 'TalkController.sendsms')
+Route.get('talk/sms', 'TalkController.sendsms')
