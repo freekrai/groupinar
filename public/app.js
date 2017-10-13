@@ -8,8 +8,6 @@ $(function() {
 	var previewTracks;
 	var roomName = talk.slug;
 
-
-
 	// Check for WebRTC
 	if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
 		alert('WebRTC is not available in your browser.');
@@ -25,14 +23,15 @@ $(function() {
 		accessToken = data.token;
 		username = data.identity;
 
+// chat...
 		chatClient = new Twilio.Chat.Client(accessToken);
 		chatClient.getSubscribedChannels().then(createOrJoinChannel);
 
+//	video....
 		var video_options = {
 			audo: false,
 			video: false
 		};
-
 		if( talk.host ){
 			video_options = {
 				audio: true,
@@ -63,7 +62,7 @@ $(function() {
 			});
 		});
 	});
-	// Helper function to print info messages to the chat window
+
 	function print(infoMessage, asHtml) {
 		var $msg = $('<div class="info">');
 		if (asHtml) {
@@ -74,7 +73,6 @@ $(function() {
 		$chatWindow.append($msg);
 	}
 
-	// Helper function to print chat message to the chat window
 	function printMessage(fromUser, message) {
 		var $user = $('<span class="username">').text(fromUser + ':');
 		if (fromUser === username) {
@@ -138,6 +136,8 @@ $(function() {
 			$input.val('');
 		}
 	});
+
+//	video code...
 	function participantConnected(participant) {
 		console.log('Participant "%s" connected', participant.identity);
 		const div = document.createElement('div');

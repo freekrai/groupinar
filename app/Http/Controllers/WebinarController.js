@@ -88,16 +88,20 @@ class WebinarController {
 			console.error('Unable to connect to Room: ' +  error.message);
 		});
 */
-		yield response.sendView('talk.host', {
+		yield response.sendView('talk.talk', {
 			slug: slug,
+			pageTitle: "Green room",
+			hostOrGuest: 1,
 			talk: webinar.toJSON()
 		})
 	}
 	* guest(request, response){
 		const slug = request.param('slug');
 		const webinar = yield Webinar.query().where('slug', slug).fetch();
-		yield response.sendView('talk.guest', {
+		yield response.sendView('talk.talk', {
 			slug: slug,
+			pageTitle: "Guest",
+			hostOrGuest: 0,
 			talk: webinar.toJSON()
 		})
 	}

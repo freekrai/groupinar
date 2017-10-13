@@ -1,0 +1,33 @@
+{% extends 'layouts.master' %}
+
+{% block title %} {{ pageTitle }} {% endblock %}
+
+{% block content %}
+	<div class="content">
+		<div class="well">
+			<h4>{{ slug }} {{ pageTitle }}</h4>
+			<p>http://localhost:3333/webinar/{{ slug }}</p>
+		</div>
+	    <div class="title m-b-md">Hosts</div>
+	    <div id="media-div"></div>
+		<div style="clear:both;"><hr /></div>
+		<div class="title m-b-md">Attendees</div>
+		<div id="people"></div>
+		<div style="clear:both;"><hr /></div>
+		<section>
+		    <div id="messages"></div>
+		    <input id="chat-input" type="text" placeholder="say anything" autofocus/>
+		  </section>
+	</div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+	<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+	<script src="https://media.twiliocdn.com/sdk/js/chat/v1.2/twilio-chat.min.js"></script>
+	<script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
+	<script>
+		var talk = {
+			slug: "{{slug}}",
+			host: {{hostOrGuest}}
+		};
+	</script>
+	<script src="/app.js"></script>
+{% endblock %}
