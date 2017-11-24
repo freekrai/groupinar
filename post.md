@@ -378,6 +378,24 @@ Now for the last part of the script, which  are the functions we call when parti
 
 That’s our video app, this can be used to host webinars pretty easily, or any other type of video chat where you want to use a one-to-many type situation.
 
+### Hosting and attending a talk
+
+Hosting a talk is pretty straight forward, you just open the URL with a slug for it:
+
+```
+http://localhost:3333/talk/host/slug
+```
+
+This will create a webinar with the slug of `slug`, any other hosts can use the same URL to be broadcast their video.
+
+To attend a talk, you would just share the guest URL:
+
+```
+http://localhost:3333/talk/slug
+```
+
+Any visitors who use this URL would see all video hosts on the talk and can watch the broadcast while not sharing video.
+
 ## What’s next?
 
 You’ve  gotten a nice intro to both AdonisJS and Twilio Video, and we’ve taken video chats a little unconventional with the host / guest mode.
