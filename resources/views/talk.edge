@@ -1,0 +1,39 @@
+<html>
+<head>
+	<title></title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<link rel="stylesheet" href="https://bootswatch.com/4/sketchy/bootstrap.min.css">
+</head>
+<body>
+	<div class="container">
+		<br />
+		<div class="alert alert-secondary" role="alert">
+			<h4>{{ slug }} {{ pageTitle }}</h4>
+			<p>http://localhost:3333/talk/{{ slug }}</p>
+		</div>
+		<div class="row">
+			<div class="col-10">
+			    <h3>Hosts</h3>
+			    <div id="media-div"></div>
+			</div>
+			<div class="col-2">
+				<h3>Attendees</h3>
+				<div id="people" class="list-group">
+			</div>
+		</div>
+	</div>
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
+	<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
+	<script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
+	<script>
+		var talk = {
+			slug: "{{slug}}",
+			host: {{hostOrGuest}}
+		};
+	</script>
+	<script src="/app.js"></script>
+</body>
+</html>
