@@ -1,7 +1,7 @@
 # Using Twilio Video to host your live webinars
 Have you ever attended a virtual conference or webinar? People watch the presenters live as they talk and ask questions using a chat interface, it’s great.
 
-Today, we’re going to use Twilio Video to create a system where a host can host a video, and viewers can watch the conference. 
+Today, we’re going to use Twilio Video to create a system where a host can host a video, and viewers can watch the conference.
 
 We’ll be using the Adonisjs framework for this as it’s great for building rapid applications.
 
@@ -45,7 +45,7 @@ npm i -g @adonisjs/cli
 
 You can follow along with the repo at [https://github.com/freekrai/groupinar](https://github.com/freekrai/groupinar)
 
-**Ok, ready to really dive in?** 
+**Ok, ready to really dive in?**
 
 ## Putting it all together
 
@@ -103,7 +103,7 @@ It will prompt you to choose the controller type:
 
 ```bash
 ? Generating a controller for ? (Use arrow keys)
-❯ Http Request 
+❯ Http Request
   For WebSocket Channel
 ```
 
@@ -122,47 +122,47 @@ const AccessToken = require('twilio').jwt.AccessToken;
 Now, inside the `TalkController` class, we want to add three new functions:
 
 ```javascript
-		async token ({ params, response }) {
-		var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
+async token ({ params, response }) {
+	var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
 
-		const VideoGrant = AccessToken.VideoGrant;
+	const VideoGrant = AccessToken.VideoGrant;
 
-		var token = new AccessToken(
-			Env.get('TWILIO_ACCOUNT_SID', null),
-			Env.get('TWILIO_API_KEY', null),
-			Env.get('TWILIO_API_SECRET', null)
-		);
-		token.identity = identity;
-		token.addGrant( new VideoGrant() );
-		return response.send({
-			identity: identity,
-			token: token.toJwt()
-		});
-	}
+	var token = new AccessToken(
+		Env.get('TWILIO_ACCOUNT_SID', null),
+		Env.get('TWILIO_API_KEY', null),
+		Env.get('TWILIO_API_SECRET', null)
+	);
+	token.identity = identity;
+	token.addGrant( new VideoGrant() );
+	return response.send({
+		identity: identity,
+		token: token.toJwt()
+	});
+}
 
-	async host ({ params, view }) {
-		const slug = params.slug;
-		return view.render('talk', {
-			slug: slug,
-			pageTitle: "Green room",
-			hostOrGuest: "1"
-		})
-	}
+async host ({ params, view }) {
+	const slug = params.slug;
+	return view.render('talk', {
+		slug: slug,
+		pageTitle: "Green room",
+		hostOrGuest: "1"
+	})
+}
 
-	async guest ({ params, view }) {
-		const slug = params.slug;
-		return view.render('talk', {
-			slug: slug,
-			pageTitle: "Guest",
-			hostOrGuest: "0"
-		})
-	}
+async guest ({ params, view }) {
+	const slug = params.slug;
+	return view.render('talk', {
+		slug: slug,
+		pageTitle: "Guest",
+		hostOrGuest: "0"
+	})
+}
 ```
 
 In the `token` function, we called:
 
 ```javascript
-		var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
+var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
 ```
 
 This will assign each user, regardless of being a host or a guest with a unique random 10 digit name. If we were adding a
@@ -254,7 +254,7 @@ We’re only creating one view that will be used by both hosts and guests, the d
 ```
 
 
-This view sets up how we want our site to look, it will display videos on the left, and a list of attendees on the right. 
+This view sets up how we want our site to look, it will display videos on the left, and a list of attendees on the right.
 
 Towards the bottom, you can see where we specify an object called `talk`, in this object we pass the chat room as `slug` and whether we are in host mode or not.
 
@@ -325,9 +325,9 @@ $(function() {
 
 In the first piece of our file, we’re calling that `/talk/token` route and getting a token that is allowed to use video, then we’re checking if `talk.host` was set to `1` for host  more, or `0` for guest mode.
 
-If `host` is set to `0`, then we don’t enable video broadcasting and we just watch instead. 
+If `host` is set to `0`, then we don’t enable video broadcasting and we just watch instead.
 
-Next we tell Twilio to  connect to the room that is specified by `talk.slug`. 
+Next we tell Twilio to  connect to the room that is specified by `talk.slug`.
 
 As part of this, we display any other video windows, and participants, and set up listeners to watch for connections and / or disconnections.
 
@@ -378,12 +378,12 @@ Now for the last part of the script, which  are the functions we call when parti
 
 That’s our video app, this can be used to host webinars pretty easily, or any other type of video chat where you want to use a one-to-many type situation.
 
-
 ## What’s next?
+
 You’ve  gotten a nice intro to both AdonisJS and Twilio Video, and we’ve taken video chats a little unconventional with the host / guest mode.
 
 This app can be extended pretty quickly to include user accounts, Q&A, or chat	 directly so that guests can interact with hosts.
 
-You can find the sample code here on [GitHub](https://github.com/freekrai/groupinar). If you encounter errors while working through this post or with the finished source code, please leave a comment or open an issue on GitHub. 
+You can find the sample code here on [GitHub](https://github.com/freekrai/groupinar). If you encounter errors while working through this post or with the finished source code, please leave a comment or open an issue on GitHub.
 
 You can extend it and if you’d like to show me what extra functionality you added, got questions, or want to send a thank you tweet, you can reach me via email at roger@datamcfly.com
