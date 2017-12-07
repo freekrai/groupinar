@@ -5,15 +5,7 @@ Today, we’re going to use Twilio Video to create a system where a host can hos
 
 We’ll be using the Adonisjs framework for this as it’s great for building rapid applications.
 
-AdonisJs is a full-stack, open-source Node.js framework that encapsulates all the tedious parts of web development and provides you a nice API to work with. AdonisJs saves you time and effort because it ships with a lot of features out of the box. These features include the following:
-
-- Lucid ORM (Effective Implementation of Active Record)
-- Database Migrations
-- Authentication System
-- Mailing System
-- Data Validator
-
-AdonisJs makes good use of already written and well-tested modules from the JavaScript community. The documentation is very detailed, and there is a vibrant community of users and collaborators who engage on Gitter, Trello, and Twitter.
+AdonisJs is a full-stack, open-source MVC framework for node.js that was inspired by the Laravel framework and borrows some of its concepts. It saves you time and effort becauses it ships with a lot of features out of the box. 
 
 This can be extended into a system that users  can sign up and schedule talks on, even pay to use. But we’re going to keep our system simple as it’s just an MVP really.
 
