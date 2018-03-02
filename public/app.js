@@ -58,8 +58,7 @@ $(function() {
 	function participantConnected(participant) {
 		console.log('Participant "%s" connected', participant.identity);
 		const div = document.createElement('div');
-		div.id = participant.sid+"-video";
-		div.setAttribute("style", "float: left; margin: 10px;");
+		div.id = "video-"+participant.sid;
 		const div2 = document.createElement('a');
 		div2.setAttribute("class", "list-group-item list-group-item-action");
 		div2.id = participant.sid;
@@ -78,14 +77,14 @@ $(function() {
 	function participantDisconnected(participant) {
 		console.log('Participant "%s" disconnected', participant.identity);
 		participant.tracks.forEach(trackRemoved);
-		document.getElementById(participant.sid+"-video").remove();
+		document.getElementById("video-"+participant.sid).remove();
 		document.getElementById(participant.sid).remove();
 	}
 	function trackAdded(div, track) {
 		div.appendChild(track.attach());
 		var video = div.getElementsByTagName("video")[0];
 		if (video) {
-			video.setAttribute("style", "max-width:300px;");
+			video.setAttribute("class", "videobox");
 		}
 	}
 	function trackRemoved(track) {

@@ -67,6 +67,15 @@ section:before {
   animation: slideUp 1s cubic-bezier(0.19, 1, 0.30, 1) 0.5s forwards;
 }
 
+.videobox{
+    max-width:300px;
+}
+
+*[id^='video-']{
+    float: left;
+    margin: 10px;
+}
+
 @keyframes slideUp {
   0% {
     transform: translateY(40px);
