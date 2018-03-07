@@ -28,7 +28,7 @@ class TalkController {
 		return view.render('talk', {
 			slug: slug,
 			pageTitle: "Green room",
-			hostOrGuest: "1"
+			hostOrGuest: "on"
 		})
 	}
 
@@ -37,7 +37,7 @@ class TalkController {
 		return view.render('talk', {
 			slug: slug,
 			pageTitle: "Guest",
-			hostOrGuest: "0"
+			hostOrGuest: "off"
 		})
 	}
 }
