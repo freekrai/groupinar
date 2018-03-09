@@ -2,7 +2,7 @@
 const Env = use('Env')
 const RandomString = use('randomstring')
 
-const AccessToken = require('twilio').jwt.AccessToken;
+const AccessToken = use('twilio').jwt.AccessToken;
 
 class TalkController {
 	async token ({ params, response }) {
