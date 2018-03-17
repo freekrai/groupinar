@@ -2,6 +2,13 @@
 const Env = use('Env')
 const RandomString = use('randomstring')
 
+var Twilio = use('twilio')
+var client = new Twilio(
+	Env.get('TWILIO_API_KEY', null), 
+	Env.get('TWILIO_API_SECRET', null), {
+		accountSid: Env.get('TWILIO_ACCOUNT_SID', null)
+	});
+
 const AccessToken = use('twilio').jwt.AccessToken;
 
 class TalkController {
@@ -20,6 +27,27 @@ class TalkController {
 		return response.send({
 			identity: identity,
 			token: token.toJwt()
+		});
+	}
+
+	async room ({ params, response }) {
+		//	if a room exists, return the info, otherwise, create one.
+		const slug = params.slug;
+		console.log("<> " + slug );
+		return client.video.rooms( slug ).fetch().then( (room) => {
+				console.log("1 >" + room.sid);
+				return response.send({
+					room: room.sid
+				});
+		}).catch( err => {
+			return client.video.rooms.create({
+				uniqueName: slug,
+			}).then( room => {
+				console.log(room.sid);
+				return response.send({
+					room: room.sid
+				});
+			});
 		});
 	}
 
