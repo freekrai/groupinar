@@ -73,5 +73,6 @@ class TalkController {
 			});
 		});
 	}
+}
 
 module.exports = TalkController
