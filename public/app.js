@@ -5,11 +5,6 @@ let activeRoom;
 let previewTracks;
 let roomName = talk.slug;
 
-// Check for WebRTC
-if (!navigator.webkitGetUserMedia && !navigator.mozGetUserMedia) {
-	alert('WebRTC is not available in your browser.');
-}
-
 window.addEventListener('beforeunload', leaveRoomIfJoined);
 
 fetch('/talk/token')
@@ -18,18 +13,18 @@ fetch('/talk/token')
 	accessToken = data.token;
 	username = data.identity;
 
-	let video_options = {
+	let videoOptions = {
 		name: talk.slug,
 		audio: false,
 		video: false
 	};
 	if( talk.host == "on" ){
-		video_options = {
+		videoOptions = {
 			audio: true,
 			video: { width: 300 }
 		};
 	}
-	return Twilio.Video.createLocalTracks(video_options);
+	return Twilio.Video.createLocalTracks(videoOptions);
 }).then( localTracks => {
 	return Twilio.Video.connect(accessToken, {
 		name: talk.slug,

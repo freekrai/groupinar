@@ -19,7 +19,6 @@ Route.on('/').render('welcome')
 
 Route.group(() => {
 	Route.get('token','TalkController.token')
-	Route.get('room/:slug','TalkController.room')
 	Route.get('host/:slug', 'TalkController.host')
 	Route.get(':slug', 'TalkController.guest')
 }).prefix('talk')

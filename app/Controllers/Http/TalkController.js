@@ -30,44 +30,48 @@ class TalkController {
 		});
 	}
 
-	async room ({ params, response }) {
+	async host ({ params, view }) {
 		//	if a room exists, return the info, otherwise, create one.
 		const slug = params.slug;
-		console.log("<> " + slug );
 		return client.video.rooms( slug ).fetch().then( (room) => {
-				console.log("1 >" + room.sid);
-				return response.send({
-					room: room.sid
-				});
+			return view.render('talk', {
+				slug: slug,
+				pageTitle: "Green room",
+				hostOrGuest: "on"
+			})
 		}).catch( err => {
 			return client.video.rooms.create({
 				uniqueName: slug,
 			}).then( room => {
-				console.log(room.sid);
-				return response.send({
-					room: room.sid
-				});
+				return view.render('talk', {
+					slug: slug,
+					pageTitle: "Green room",
+					hostOrGuest: "on"
+				})
 			});
 		});
 	}
 
-	async host ({ params, view }) {
-		const slug = params.slug;
-		return view.render('talk', {
-			slug: slug,
-			pageTitle: "Green room",
-			hostOrGuest: "on"
-		})
-	}
-
 	async guest ({ params, view }) {
+		//	if a room exists, return the info, otherwise, create one.
 		const slug = params.slug;
-		return view.render('talk', {
-			slug: slug,
-			pageTitle: "Guest",
-			hostOrGuest: "off"
-		})
+		return client.video.rooms( slug ).fetch().then( (room) => {
+			return view.render('talk', {
+				slug: slug,
+				pageTitle: "Guest",
+				hostOrGuest: "off"
+			})
+		}).catch( err => {
+			return client.video.rooms.create({
+				uniqueName: slug,
+			}).then( room => {
+				return view.render('talk', {
+					slug: slug,
+				pageTitle: "Guest",
+				hostOrGuest: "off"
+				})
+			});
+		});
 	}
-}
 
 module.exports = TalkController
