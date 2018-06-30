@@ -16,6 +16,7 @@ class TalkController {
 		var identity = RandomString.generate({ length: 10, capitalization: 'uppercase' });
 
 		const VideoGrant = AccessToken.VideoGrant;
+		const ChatGrant = AccessToken.ChatGrant;
 
 		var token = new AccessToken(
 			Env.get('TWILIO_ACCOUNT_SID', null),
@@ -24,6 +25,8 @@ class TalkController {
 		);
 		token.identity = identity;
 		token.addGrant( new VideoGrant() );
+		token.addGrant( new ChatGrant() );
+
 		return response.send({
 			identity: identity,
 			token: token.toJwt()
