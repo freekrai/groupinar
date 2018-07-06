@@ -23,9 +23,12 @@ class TalkController {
 			Env.get('TWILIO_API_KEY', null),
 			Env.get('TWILIO_API_SECRET', null)
 		);
+		
 		token.identity = identity;
 		token.addGrant( new VideoGrant() );
-		token.addGrant( new ChatGrant() );
+		token.addGrant( new ChatGrant({
+			serviceSid: Env.get('TWILIO_CHAT_SERVICE_SID', null)
+		}) );
 
 		return response.send({
 			identity: identity,

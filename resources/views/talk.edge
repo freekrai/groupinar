@@ -14,8 +14,16 @@
 		</div>
 		<div class="row">
 			<div class="col-10">
+				<div class="row">
 			    <h3>Hosts</h3>
 			    <div id="media-div"></div>
+				</div>
+				<div class="row">
+					<section>
+					<div id="messages"></div>
+					<input id="chat-input" type="text" placeholder="say anything" autofocus/>
+					</section>
+				</div>
 			</div>
 			<div class="col-2">
 				<h3>Attendees</h3>
@@ -25,6 +33,7 @@
 	</div>
 	<script src="https://media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
 	<script src="//media.twiliocdn.com/sdk/js/video/v1/twilio-video.min.js"></script>
+	<script src="//media.twiliocdn.com/sdk/js/chat/releases/0.11.1/twilio-chat.js"></script>
 	<script>
 		var talk = {
 			slug: "{{slug}}",
