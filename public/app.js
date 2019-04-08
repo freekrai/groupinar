@@ -17,10 +17,10 @@ fetch('/talk/token')
 	username = data.identity;
 
 // chat...
-		chatClient = new Twilio.Chat.Client(accessToken);
-		chatClient.getSubscribedChannels().then(createOrJoinChannel);
+//		chatClient = new Twilio.Chat.Client(accessToken);
+//		chatClient.getSubscribedChannels().then(createOrJoinChannel);
 
-//	video....	
+//	video....
 	let videoOptions = {
 		name: talk.slug,
 		audio: false,
